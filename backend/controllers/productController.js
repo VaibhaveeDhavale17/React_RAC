@@ -34,8 +34,6 @@ exports.createProduct = async(req,res,next)=>{
 }
 
 
-
-
 /*************
 GET ALL PRODUCTS
 **************/
@@ -69,8 +67,6 @@ exports.getProductDetails = async(req,res,next)=>{
         product,
     })
 }
-
-
 
 /*************
 UPDATE PRODUCT
