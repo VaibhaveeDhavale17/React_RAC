@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const userSchema =new mongoose.Schema({
     userName:{
@@ -20,9 +22,41 @@ const userSchema =new mongoose.Schema({
         required :[true,"Please enter a password"],
         minLength: [6,"Password must be up to 6 characters"],
         maxLength: [25,"Password must not be more than 25 characters"],
-    }
+        select: false,
+    },
+
+    role: {
+        type: String,
+        default: "user",
+      },
 },{
     timestamps: true
 });
+
+// Password Encryption
+
+userSchema.pre("save", async function (next) {
+    if (!this.isModified("userPassword")) {
+      next();
+    }
+  
+    this.userPassword = await bcrypt.hash(this.userPassword, 10);
+  });
+
+
+  // JWT TOKEN
+
+userSchema.methods.getJWTToken = function () {
+    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRE,
+    });
+  };
+
+
+// Compare Password
+
+userSchema.methods.comparePassword = async function (password) {
+    return await bcrypt.compare(password,this.userPassword);
+  };
 
 module.exports = mongoose.model("User",userSchema);
