@@ -1,6 +1,13 @@
 const mongoose = require("mongoose");
 
 const productSchema =new mongoose.Schema({
+
+    refNumber:{
+        type:String,
+        required:[true, "Please enter the Reference Number of the product"],
+        unique:true,
+    },
+
     productName:{
         type:String,
         required:[true,"Please enter product name"]
@@ -17,10 +24,10 @@ const productSchema =new mongoose.Schema({
         maxLength:[8, "Price cannot exceed 8 figures"]
     },
 
-    monthColor:{
+    month:{
         type:Number,
         required:true,
-        default:getCurrentMonthColor(),
+        default:new Date().getMonth() + 1
     },
 
     productEntryDate:{
@@ -57,32 +64,86 @@ const productSchema =new mongoose.Schema({
     },
 
     totalPrice:{
-      type:Number,
+      type:mongoose.Types.Decimal128,
+      set:(value)=>{
+        return new mongoose.Types.Decimal128(value.toFixed(2));
+      },
       default:0,  
+    },
+
+    taxPercentage:{
+        type:Number,
+        default:18,
+    },
+
+    cgstPercentage:{
+        type:Number,
+        default:9,
+    },
+
+    sgstPercentage:{
+        type:Number,
+        default:9,
+    },
+
+    monthColor:{
+        type:String,
     }
     
 });
 
-//FUNCTION TO GET THE CURRENT MONTH'S COLOR
-function getCurrentMonthColor(){
-    const monthColors={
-        '01':'Blue',
-        '02':'Green',
-        '03':'Yellow',
-        '04':'Sea Green',
-        '05':"Pink",
-        '06':'Magenta',
-        '07':'Orange',
-        '08':'Peach',
-        '09':'Brown',
-        '10':'Cyan',
-        '11':'Purple',
-        '12':'Dark Blue'
-    };
 
-    const currentMonth = new Date().toLocaleString('en-US',{month:'2-digit'});
+//CALCULATE THE TAX, CGST, SGST
+productSchema.pre('save', function(next){
 
-    return monthColors[currentMonth];
-}
+    switch(this.month){
+        case 1: this.monthColor = 'Blue';
+        break;
+
+        case 2: this.monthColor = 'Green';
+        break;
+
+        case 3:this.monthColor = "Yellow";
+        break;
+
+        case 4:this.monthColor = "Light Green";
+        break;
+
+        case 5:this.monthColor = "Pink";
+        break;
+
+        case 6:this.monthColor = "Purple";
+        break;
+
+        case 7:this.monthColor = "Orange";
+        break;
+
+        case 8:this.monthColor = "Peach";
+        break;
+
+        case 9:this.monthColor = "Brown";
+        break;
+
+        case 10:this.monthColor = "Cyan";
+        break;
+
+        case 11:this.monthColor = "Violet";
+        break;
+
+        case 12:this.monthColor = "Royal Blue";
+        break;
+    }
+
+    try{
+        this.tax = (this.productPrice * this.taxPercentage)/100;
+        this.cgst = (this.productPrice * this.cgstPercentage)/100;
+        this.sgst = (this.productPrice * this.sgstPercentage)/100;
+        this.totalPrice = (this.productPrice * this.numOfProducts) + this.tax + this.cgst + this.sgst;
+
+        next();
+    }catch(err){
+        next(err);
+    }
+})
 
 module.exports=mongoose.model('Product', productSchema);
