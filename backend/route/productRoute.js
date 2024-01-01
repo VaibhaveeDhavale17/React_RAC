@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllProducts, createProduct, updateProduct, deleteProduct, getProductDetails } = require("../controllers/productController");
+const { getAllProducts, createProduct, updateProduct, deleteProduct, getProductDetails, scheduleExpiryDate } = require("../controllers/productController");
 
 const router = express.Router();
 
@@ -18,5 +18,8 @@ router.route("/product/:refNumber").delete(deleteProduct);
 
 //GET PRODUCT DETAILS
 router.route("/product/:refNumber").get(getProductDetails);
+
+//Get Expiry Products
+router.route("/products/expiry").get(scheduleExpiryDate);
 
 module.exports = router;
