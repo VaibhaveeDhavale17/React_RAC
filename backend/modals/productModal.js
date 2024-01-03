@@ -88,7 +88,7 @@ const productSchema =new mongoose.Schema({
 
     monthColor:{
         type:String,
-    }
+    },
     
 });
 
