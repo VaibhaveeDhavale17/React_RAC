@@ -112,3 +112,22 @@ exports.scheduleExpiryDate = catchAsyncErrors(async (req,res,next) =>{
     expiringProducts,
    });
 });
+
+
+exports.expiredProducts = catchAsyncErrors(async(req,res,next)=>{
+    const today = new Date();
+    const expiredProducts = await Product.find({
+        productExpiryDate:{
+            $lt: today
+        }
+    });
+    
+    if(!expiredProducts){
+        return next(new ErrorHandler(`No Expired Products`, 404));
+    }
+
+    res.status(201).json({
+        sucess:true,
+        expiredProducts
+    })
+})

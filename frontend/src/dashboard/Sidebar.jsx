@@ -1,8 +1,8 @@
 import React from 'react'
 import { Sidebar } from 'flowbite-react';
-import { HiArrowSmRight, HiChartPie, HiInbox,  HiOutlineCloudUpload, HiUser, HiLogout} from 'react-icons/hi';
+import {  HiChartPie, HiInbox,  HiOutlineCloudUpload, HiUser, HiLogout} from 'react-icons/hi';
 import user from '/img/favicon.png'
-import { FaList, FaCogs } from 'react-icons/fa';
+import { FaList} from 'react-icons/fa';
 
 const MySidebar = () => {
   return (
@@ -21,10 +21,10 @@ const MySidebar = () => {
           <Sidebar.Item href="/dashboard/manage" icon={HiInbox}>
             Manage items
           </Sidebar.Item>
-          <Sidebar.Item href="" icon={HiUser}>
+          <Sidebar.Item href="/dashboard/manageusers" icon={HiUser}>
             Manage Users
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={FaList}>
+          <Sidebar.Item href="/dashboard/allitems" icon={FaList}>
             All Products
           </Sidebar.Item>
           

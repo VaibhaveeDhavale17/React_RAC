@@ -1,13 +1,10 @@
 import React from 'react'
-import Banner from '../Components/Banner'
-// import Signup from '../Components/Signup'
-import Navbar from '../Components/Navbar'
+import Login from '../Components/Login'
 
 const Home = () => {
   return (
     <div>
-      <Navbar/>
-      <Banner/>
+      <Login/>
     </div>
   )
 }

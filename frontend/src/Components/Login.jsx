@@ -1,6 +1,5 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import Signup from '../Components/Signup'
 
 const Login = () => {
 
@@ -13,12 +12,12 @@ const Login = () => {
         console.log(email,password);
     }
   return (
-<div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
-	<div className="relative py-3 sm:max-w-xl sm:mx-auto">
+<div className="min-h-screen bg-gray-100 py-6 flex flex-col sm:py-12 ml-auto">
+	<div className="relative ml-auto py-3 sm:max-w-xl sm:mx-auto">
 		<div
 			className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
 		</div>
-		<div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20 lg:pb-11">
+		<div className="relative px-26 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20 lg:pb-11">
 			<div className="max-w-md mx-auto">
 				<div>
 					<h1 className="text-2xl font-semibold">Login Form</h1>
@@ -41,8 +40,10 @@ const Login = () => {
 </div>
 
                         <p className='text-sm'>Are you a new User? Please <Link to='/signup' className="text-blue-700 underline">Signup</Link> Here</p>
+						<p className='text-sm'><Link to='/signup' className="text-blue-700">Forget Password</Link></p>
+
 						<div className="flex justify-center items-center h-full">
-							<button className="bg-blue-500 text-white rounded-md px-2 py-1">Sign up</button>
+							<button className="bg-blue-500 text-white rounded-md px-2 py-1">Login</button>
 						</div>
 					</form>
 				</div>

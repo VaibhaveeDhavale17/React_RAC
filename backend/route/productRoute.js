@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllProducts, createProduct, updateProduct, deleteProduct, getProductDetails, scheduleExpiryDate } = require("../controllers/productController");
+const { getAllProducts, createProduct, updateProduct, deleteProduct, getProductDetails, scheduleExpiryDate, expiredProducts } = require("../controllers/productController");
 
 const router = express.Router();
 
@@ -21,5 +21,6 @@ router.route("/product/:refNumber").get(getProductDetails);
 
 //Get Expiry Products
 router.route("/products/expiry").get(scheduleExpiryDate);
+router.route("/products/expiredproducts").get(expiredProducts);
 
 module.exports = router;
