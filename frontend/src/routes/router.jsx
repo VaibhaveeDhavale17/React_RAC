@@ -13,6 +13,7 @@ import ManageItems from "../dashboard/ManageItems";
 import EditItems from "../dashboard/EditItems";
 import ManageUsers from "../dashboard/ManageUsers";
 import GetAllItems from "../dashboard/GetAllItems";
+import AddSupplier from "../dashboard/AddSupplier";
 
   const router = createBrowserRouter([
     {
@@ -64,7 +65,11 @@ import GetAllItems from "../dashboard/GetAllItems";
         {
           path:'/dashboard/allitems',
           element:<GetAllItems/>
-        }
+        },
+        {
+          path:'/dashboard/supplier',
+          element:<AddSupplier/>
+        },
       ]
     }
   ]);

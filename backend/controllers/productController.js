@@ -93,7 +93,9 @@ exports.deleteProduct = catchAsyncErrors(async(req,res,next)=>{
     })
 });
 
-//get expiring products
+/*************
+GET UPCOMING EXPIRY PRODUCT
+**************/
 
 exports.scheduleExpiryDate = catchAsyncErrors(async (req,res,next) =>{
    const today = new Date();
@@ -113,6 +115,9 @@ exports.scheduleExpiryDate = catchAsyncErrors(async (req,res,next) =>{
    });
 });
 
+/*************
+GET ALL EXPIRED PRODUCT
+**************/
 
 exports.expiredProducts = catchAsyncErrors(async(req,res,next)=>{
     const today = new Date();

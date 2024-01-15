@@ -4,9 +4,9 @@ import './CreateItem.css'
 
 const CreateItem = () => {
   return (
-    <div className="card-body mt-5">
+    <div className="card-body mt-2 pb-5">
         <div className="row" >
-          <div className="col-lg-8 mx-auto mt-5 pd-5 p-5" style={{ backgroundColor: 'white' }}>
+          <div className="col-lg-8 mx-auto mt-5 p-5" style={{ backgroundColor: 'white', boxShadow: '0 4px 8px rgba(0, 0, 1, 0.1)' }} >
 
           <div className="flex flex-col items-center mb-2">
   <h5 className="mb-4 text-center">Insert new Item</h5>

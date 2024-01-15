@@ -89,6 +89,11 @@ const productSchema =new mongoose.Schema({
     monthColor:{
         type:String,
     },
+
+    productCategory:{
+        required:true,
+        type:String,
+    }
     
 });
 
