@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
-import Navbar from '../Components/Navbar';
+import axios from 'axios';
 
 const Dashboard = () => {
   const chartData = {
@@ -68,14 +68,67 @@ const Dashboard = () => {
   }, []);
 
 
+  //TOTAL STOCKS IN THE INVENTORY
+  const [totalStockCount, setTotalStockCount] = useState("0");
+
+  useEffect(()=>{
+    const fetchData = async()=>{
+      try{
+
+        const response = await axios.get('http://localhost:4000/rac/products/totalstockcount');
+
+        setTotalStockCount(response.data.totalStockCount);
+        
+      }catch(e){
+        console.log(e);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  //GET EXPIRY PRODUCTS
+
+  const [scheduleExpiryDate, setscheduleExpiryDate] = useState([]);
+
+  useEffect(()=>{
+    const fetchExpiredProducts = async()=>{
+      try{
+
+        const res = await axios.get('http://localhost:4000/rac/products/expiry');
+        setscheduleExpiryDate(res.data.scheduleExpiryDate);
+
+      }catch(e){
+        console.log(e)
+      }
+    }
+
+    // fetchExpiredProducts();
+  }, [])
+
+  const [totalCategories, setNumCategories] = useState("0");
+
+  useEffect(()=>{
+    const fetchCategories = async()=>{
+      try{
+
+        const res = await axios.get('http://localhost:4000/rac/products/categories');
+        setNumCategories(res.data.num);
+      }catch(e){
+        console.log(e);
+      }
+    }
+
+    fetchCategories();
+  }, [])
+
+
 
   return (
     <div>
-      {/* Header */}
-      {/* <Navbar/> */}
 
       {/* Main Body - Recent Orders and Sales Overview */}
-      <div class="grid grid-cols-2 divide-x ">
+      <div className="grid grid-cols-2 divide-x ">
     
         <div className="flex flex-col space-y-4 ...">                   
             {/* Order 1 */}
@@ -84,7 +137,7 @@ const Dashboard = () => {
               <h3 className="text-lg font-semibold mb-2">
                 Total Stock Available{' '}
               </h3>
-              <p className="text-gray-600">Count: 50</p>
+              <p className="text-gray-600">{totalStockCount}</p>
             </div>          
 
            {/* Sales Overview */}
@@ -95,33 +148,31 @@ const Dashboard = () => {
         </div>
 
         <div className="bg-white p-4 rounded-md shadow bg-white">
-        <div class="w-[690px] h-[308px] relative  rounded-[10px]">
-    <div class="absolute text-zinc-700 text-xl font-medium font-['Inter'] ">Top Requirements</div>
-    <div class="left-[10px]  top-[82px] absolute text-gray-500 text-sm font-medium font-['Inter'] leading-tight">Name</div>
-    <div class="left-[94px] top-[82px] absolute text-gray-500 text-sm font-medium font-['Inter'] leading-tight">Used Quantity</div>
-    <div class="left-[240px] top-[82px] absolute text-gray-500 text-sm font-medium font-['Inter'] leading-tight">Price</div>
-    <div class="left-[312px] top-[82px] absolute text-gray-500 text-sm font-medium font-['Inter'] leading-tight">Remaining Quantity</div>
-    <div class="left-[10px] top-[136px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">Paint</div>
-    <div class="left-[10px] top-[201px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">xyz</div>
-    <div class="left-[10px] top-[266px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">abc</div>
-    <div class="left-[140px] top-[136px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">30</div>
-    <div class="left-[140px] top-[201px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">21</div>
-    <div class="left-[140px] top-[266px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">19</div>
-    <div class="left-[362px] top-[136px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">12</div>
-    <div class="left-[362px] top-[201px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">15</div>
-    <div class="left-[362px] top-[266px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">17</div>
-    <div class="left-[240px] top-[136px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">₹ 100</div>
-    <div class="left-[240px] top-[201px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">₹ 207</div>
-    <div class="left-[240px] top-[266px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">₹ 105</div>
-    <div class="left-[400px] top-[10px] absolute text-blue-800 text-sm font-normal font-['Inter']">See All</div>
+        <div className="w-[690px] h-[308px] relative  rounded-[10px]">
+    <div className="absolute text-zinc-700 text-xl font-medium font-['Inter'] ">Top Requirements</div>
+    <div className="left-[10px]  top-[82px] absolute text-gray-500 text-sm font-medium font-['Inter'] leading-tight">Name</div>
+    <div className="left-[94px] top-[82px] absolute text-gray-500 text-sm font-medium font-['Inter'] leading-tight">Used Quantity</div>
+    <div className="left-[240px] top-[82px] absolute text-gray-500 text-sm font-medium font-['Inter'] leading-tight">Price</div>
+    <div className="left-[312px] top-[82px] absolute text-gray-500 text-sm font-medium font-['Inter'] leading-tight">Remaining Quantity</div>
+    <div className="left-[10px] top-[136px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">Paint</div>
+    <div className="left-[10px] top-[201px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">xyz</div>
+    <div className="left-[10px] top-[266px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">abc</div>
+    <div className="left-[140px] top-[136px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">30</div>
+    <div className="left-[140px] top-[201px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">21</div>
+    <div className="left-[140px] top-[266px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">19</div>
+    <div className="left-[362px] top-[136px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">12</div>
+    <div className="left-[362px] top-[201px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">15</div>
+    <div className="left-[362px] top-[266px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">17</div>
+    <div className="left-[240px] top-[136px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">₹ 100</div>
+    <div className="left-[240px] top-[201px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">₹ 207</div>
+    <div className="left-[240px] top-[266px] absolute text-stone-500 text-sm font-medium font-['Inter'] leading-tight">₹ 105</div>
+    <div className="left-[400px] top-[10px] absolute text-blue-800 text-sm font-normal font-['Inter']">See All</div>
 </div>
         </div>
 
 
        {/* </div> */}
         </div>
-
-
 
         {/* Half side*/}
         <div className="mt-2 p-2"> 
@@ -180,7 +231,7 @@ const Dashboard = () => {
         <div className="flex flex-col items-center">
           <div className="flex flex-col items-center gap-1 ">
             <div className="text-[#444] font-['Inter'] text-sm font-medium leading-5">Number of Suppliers</div>
-            <div className="text-[#5d6679] font-['Inter'] font-semibold leading-6">31</div>
+            <div className="text-[#5d6679] font-['Inter'] font-semibold leading-6">3</div>
           </div>
           <div className="flex justify-center items-center pt-[0.1875rem] pb-[0.1875rem] px-0 w-[1.875rem] h-[1.875rem] rounded bg-[#ffeedb]">
             <svg width={27} height={25} viewBox="0 0 27 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -198,7 +249,7 @@ const Dashboard = () => {
       <div className="flex-col space-between items-center gap-4">
   <div className="flex flex-col items-center gap-1">
     <div className="text-[#444] font-['Inter'] text-sm font-medium leading-5">Number of Categories</div>
-    <div className="text-[#5d6679] font-['Inter'] font-semibold leading-6">21</div>
+    <div className="text-[#5d6679] font-['Inter'] font-semibold leading-6">{totalCategories}</div>
   </div>
   <div className="flex justify-center items-center pb-[0.1875rem] pl-[0.3125rem] pr-[0.1875rem] p-0 w-[1.875rem] h-[1.875rem] rounded bg-[#eceaff]">
     <svg width={22} height={25} viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -217,17 +268,17 @@ const Dashboard = () => {
 </div>
   
             <div className="mt-2 bg-white p-4 rounded-md shadow">
-            <div class="w-[189px] h-6 text-zinc-700 text-xl font-medium font-['Inter'] leading-[30px]">Expiring Shelf Life </div>
-            <div class="w-[345px] h-20 pt-5 justify-start items-center gap-[26px] inline-flex">
-    <img class="w-[60px] h-[70px] rounded" src="https://via.placeholder.com/60x70" />
-    <div class="w-[181px] flex-col  justify-start items-start gap-1 inline-flex">
-        <div class="text-zinc-700 text-base font-semibold font-['Inter'] leading-normal">Paint</div>
-        <div class="w-[201px] h-5 text-gray-500 text-sm font-normal font-['Inter'] leading-tight">Expiry Date : 10/12/23</div>
-        <div class="w-[201px] h-5 text-gray-500 text-sm font-normal font-['Inter'] leading-tight">Quantity : 1</div>
+            <div className="w-[189px] h-6 text-zinc-700 text-xl font-medium font-['Inter'] leading-[30px]">Expiring Shelf Life </div>
+            <div className="w-[345px] h-20 pt-5 justify-start items-center gap-[26px] inline-flex">
+    <img className="w-[60px] h-[70px] rounded" src="https://via.placeholder.com/60x70" />
+    <div className="w-[181px] flex-col  justify-start items-start gap-1 inline-flex">
+        <div className="text-zinc-700 text-base font-semibold font-['Inter'] leading-normal">{scheduleExpiryDate.productName}</div>
+        <div className="w-[201px] h-5 text-gray-500 text-sm font-normal font-['Inter'] leading-tight">Expiry Date : {scheduleExpiryDate.expiryDate}</div>
+        <div className="w-[201px] h-5 text-gray-500 text-sm font-normal font-['Inter'] leading-tight">Quantity : 1</div>
     </div>
-    <div class="mix-blend-multiply justify-start items-start flex">
-        <div class="pl-1.5 pr-2 py-0.5 bg-rose-50 rounded-2xl justify-center items-center gap-1 flex">
-            <div class="text-center text-orange-800 text-xs font-medium font-['Inter'] leading-[18px]">2 days</div>
+    <div className="mix-blend-multiply justify-start items-start flex">
+        <div className="pl-1.5 pr-2 py-0.5 bg-rose-50 rounded-2xl justify-center items-center gap-1 flex">
+            <div className="text-center text-orange-800 text-xs font-medium font-['Inter'] leading-[18px]">2 days</div>
         </div>
     </div>
 </div>
@@ -237,15 +288,15 @@ const Dashboard = () => {
             <div className="mt-2 bg-white p-4 rounded-md shadow">
             <h1 className="text-2xl font-semibold mb-4">Low Quantity Stock</h1>  
 
-            <div class="w-[351px] h-[70px] justify-start items-center gap-[26px] inline-flex">
-    <img class="w-[60px] h-[70px] rounded" src="https://via.placeholder.com/60x70" />
-    <div class="flex-col justify-start items-start gap-1 inline-flex">
-        <div class="text-zinc-700 text-base font-semibold font-['Inter'] leading-normal">Paint</div>
-        <div class="w-[201px] text-gray-500 text-sm font-normal font-['Inter'] leading-tight">Remaining Quantity : 10 Tin</div>
+            <div className="w-[351px] h-[70px] justify-start items-center gap-[26px] inline-flex">
+    <img className="w-[60px] h-[70px] rounded" src="https://via.placeholder.com/60x70" />
+    <div className="flex-col justify-start items-start gap-1 inline-flex">
+        <div className="text-zinc-700 text-base font-semibold font-['Inter'] leading-normal">Paint</div>
+        <div className="w-[201px] text-gray-500 text-sm font-normal font-['Inter'] leading-tight">Remaining Quantity : 10 Tin</div>
     </div>
-    <div class="mix-blend-multiply justify-start items-start flex">
-        <div class="pl-1.5 pr-2 py-0.5 bg-rose-50 rounded-2xl justify-center items-center gap-1 flex">
-            <div class="text-center text-orange-800 text-xs font-medium font-['Inter'] leading-[18px]">Low</div>
+    <div className="mix-blend-multiply justify-start items-start flex">
+        <div className="pl-1.5 pr-2 py-0.5 bg-rose-50 rounded-2xl justify-center items-center gap-1 flex">
+            <div className="text-center text-orange-800 text-xs font-medium font-['Inter'] leading-[18px]">Low</div>
         </div>
     </div>
 </div>              

@@ -4,14 +4,20 @@ import Login from '../Components/Login'
 
 const Signup = () => {
 
-    const handleSignUp = (event)=>{
-        event.preventDefault();
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 
-        console.log(email,password);
-    }
+	async function submit(e){
+		e.preventDefault();
+
+		try{
+			await axios.post("http://localhost:5173/signup", {
+				email,password
+			})
+		}catch(e){
+			console.log(e);
+		}
+	}
   return (
 <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
 	<div className="relative py-3 sm:max-w-xl sm:mx-auto">
