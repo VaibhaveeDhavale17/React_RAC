@@ -1,18 +1,72 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './CreateItem.css'
+import 'react-tailwindcss-datepicker'
+import axios from 'axios';
+import {DatePicker} from 'antd';
+const {RangePicker} = DatePicker;
 
 
 const CreateItem = () => {
+
+  const [dates, setDates] = useState([]);
+  console.log(dates);
+  
+
+  //GET SELECTED MONTH
+  const [selectedMonth, setSelelectedMonth] = useState('');
+
+  const handleMonthChange = (e) =>{
+    const selectedValue = e.target.value;
+    // console.log(selectedValue);
+
+    setSelelectedMonth(selectedValue);
+    // console.log(selectedMonth);
+  }
+
+  //HANDLE INSERT ITEMS
+  const handleInsertItems = (event) =>{
+    event.preventDefault();
+    const form = event.target;
+
+    const refNumber = form.refNumber.value;
+    const productName = form.name.value;
+    const description = form.description.value;
+    const price = form.price.value;
+    const category = form.category.value;
+    const month = selectedMonth;
+    const entryDate = dates[0];
+    const expiryDate = dates[1];
+    const numOfProducts = form.numOfProducts.value;
+    const tax = form.tax.value;
+    const cgst = form.cgst.value;
+    const sgst = form.sgst.value;
+
+    const productObj = {
+      refNumber, productName, description, price, category, month, 
+      entryDate, expiryDate,
+      numOfProducts, tax, cgst, sgst
+    }
+
+    // console.log(productObj);
+
+    //SEND DATA TO DATABASE
+    axios.post('http://localhost:4000/rac/product/new', {productObj})
+    .then((response)=>console.log(response))
+    .catch((err)=>console.log(err));
+
+    console.log(productObj);
+    
+  }
+
   return (
-    <div className="card-body mt-5">
+    <div className="card-body mt-2 pb-5 overflow-y-hidden">
         <div className="row" >
-          <div className="col-lg-8 mx-auto mt-5 pd-5 p-5" style={{ backgroundColor: 'white' }}>
+          <div className="col-lg-8 mx-auto mt-5 p-5 "  style={{ backgroundColor: 'white', boxShadow: '0 4px 8px rgba(0, 0, 1, 0.1)' }} >
 
-          <div className="flex flex-col items-center mb-2">
+          <div className="flex flex-col items-center mb-2 ">
   <h5 className="mb-4 text-center">Insert new Item</h5>
-  {/* Other content goes here */}
 </div>
-
+    <form onSubmit={handleInsertItems}>
             <div className="row g-3">
               <div className="col-md-6">
                 <label className="form-label" htmlFor="refNumber">Product Reference Number</label>
@@ -34,9 +88,14 @@ const CreateItem = () => {
                 <input type="text" id="price" className="form-control phone-mask"/>
               </div>
 
+              <div className="col-md-6">
+                <label className="form-label" htmlFor="category">Product Categoory</label>
+                <input type="text" id="category" className="form-control phone-mask"/>
+              </div>
+
               <div className="col-md">
                 <label className="form-label" htmlFor="month">Entry Month</label>
-                <div className="position-relative"><select id="month" className="select2 form-select select2-hidden-accessible" data-allow-clear="true" data-select2-id="month" tabindex="-1" aria-hidden="true">
+                <div className="position-relative"><select onChange={handleMonthChange} id="month" className="select2 form-select select2-hidden-accessible" data-allow-clear="true" data-select2-id="month" tabIndex="-1" aria-hidden="true">
                   <option value="" data-select2-id="2">Select</option>
                   <option value="01">January</option>
                   <option value="02">February</option>
@@ -51,30 +110,18 @@ const CreateItem = () => {
                   <option value="11">November</option>
                   <option value="12">December</option>
                   
-                </select><span className="select2 select2-container select2-container--default" dir="ltr" data-select2-id="1" style={{ width: '288.781px' }}><span className="selection"><span className="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-state-container"><span className="select2-selection__rendered" id="select2-state-container" role="textbox" aria-readonly="true"><span className="select2-selection__placeholder"></span></span><span className="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span className="dropdown-wrapper" aria-hidden="true"></span></span></div>
+                </select><span className="select2 select2-container select2-container--default" dir="ltr" data-select2-id="1" style={{ width: '288.781px' }}><span className="selection"><span className="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabIndex="0" aria-disabled="false" aria-labelledby="select2-state-container"><span className="select2-selection__rendered" id="select2-state-container" role="textbox" aria-readonly="true"><span className="select2-selection__placeholder"></span></span><span className="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span className="dropdown-wrapper" aria-hidden="true"></span></span></div>
               </div>
 
-              
-{/* <div date-rangepicker className="flex items-center">
-  <div className="relative">
-    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-         <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-        </svg>
-    </div>
-    <input name="start" type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start"/>
-  </div>
-  <span className="mx-4 text-gray-500">to</span>
-  <div className="relative">
-    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-         <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-        </svg>
-    </div>
-    <input name="end" type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end"/>
-</div>
-</div> */}
+  <div>
+    <RangePicker onChange={(values) => {
+      setDates(values.map(item=>{
+        return (item).format('DD-MM-YYYY');
+      }))
+    }}
 
+      />
+  </div>
 
               <div className="col-md-6">
                 <label className="form-label" htmlFor="numOfProducts">Number of Products</label>
@@ -102,19 +149,15 @@ const CreateItem = () => {
               </div>
               </div>
               <div className="flex justify-center">
-  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded mb-5">
+  <button type='submit' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded mb-5">
     Submit
   </button>
 </div>
-
-
-
+              </div>
+              </form>
               </div>
               </div>
               </div>
-              </div>
-
-
   )
 }
 

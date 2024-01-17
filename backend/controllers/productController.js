@@ -4,7 +4,6 @@ const catchAsyncErrors = require("../middleWare/catchAsyncErrors");
 const { json } = require("express");
 const ApiFeatures = require("../utils/apiFeatures");
 
-
 /*************
 CREATE PRODUCT
 **************/
@@ -93,7 +92,9 @@ exports.deleteProduct = catchAsyncErrors(async(req,res,next)=>{
     })
 });
 
-//get expiring products
+/*************
+GET UPCOMING EXPIRY PRODUCT
+**************/
 
 exports.scheduleExpiryDate = catchAsyncErrors(async (req,res,next) =>{
    const today = new Date();
@@ -113,6 +114,9 @@ exports.scheduleExpiryDate = catchAsyncErrors(async (req,res,next) =>{
    });
 });
 
+/**********************
+GET ALL EXPIRED PRODUCT
+**********************/
 
 exports.expiredProducts = catchAsyncErrors(async(req,res,next)=>{
     const today = new Date();
@@ -130,4 +134,39 @@ exports.expiredProducts = catchAsyncErrors(async(req,res,next)=>{
         sucess:true,
         expiredProducts
     })
+});
+
+/*************
+GET TOTAL STOCKS
+**************/
+exports.totalStockCount = catchAsyncErrors(async(req,res,next)=>{
+    
+    const totalStockCount = await Product.countDocuments();
+
+    if(!totalStockCount){
+        return next(new ErrorHandler(`NO stock in inventory`, 404));
+    }
+
+    res.status(201).json({
+        success:true,
+        totalStockCount,
+    })
+})
+
+/*************
+GET Number of Categories
+**************/
+exports.totalCategories = catchAsyncErrors(async(req,res, next)=>{
+    const totalCategories = await Product.distinct('productCategory');
+    const num = totalCategories.length;
+
+    if(totalCategories === undefined || totalCategories===0){
+        return next(new ErrorHandler(`No Categories`, 404));
+    }
+
+    res.json({
+        success:true,
+        num,
+    })
+
 })

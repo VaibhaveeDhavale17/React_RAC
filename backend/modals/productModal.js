@@ -23,6 +23,10 @@ const productSchema =new mongoose.Schema({
         required:[true,"Please enter the price of the product"],
         maxLength:[8, "Price cannot exceed 8 figures"]
     },
+    productCategory:{
+        required:true,
+        type:String,
+    },
 
     month:{
         type:Number,
@@ -89,6 +93,8 @@ const productSchema =new mongoose.Schema({
     monthColor:{
         type:String,
     },
+
+    
     
 });
 

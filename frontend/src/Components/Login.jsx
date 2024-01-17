@@ -1,16 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 const Login = () => {
 
+	const user = "abcc";
+	const pass = "abcc";
+	const navigate = useNavigate();
     const handleSignUp = (event)=>{
         event.preventDefault();
         const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
 
-        console.log(email,password);
-    }
+		if(form.email.value === user && form.password.value===pass){
+			navigate("/dashboard");
+			console.log("Login Successful");
+		}
+		else{
+			alert("password incorrect")
+			console.log("Login unsuccessful");
+		}
+
+	}
+
   return (
 <div className="min-h-screen bg-gray-100 py-6 flex flex-col sm:py-12 ml-auto">
 	<div className="relative ml-auto py-3 sm:max-w-xl sm:mx-auto">
