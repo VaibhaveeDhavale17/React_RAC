@@ -5,6 +5,8 @@ import axios from 'axios';
 import {DatePicker} from 'antd';
 const {RangePicker} = DatePicker;
 
+///Push from vaibhavee try
+
 
 const CreateItem = () => {
 
@@ -47,7 +49,7 @@ const CreateItem = () => {
       numOfProducts, tax, cgst, sgst
     }
 
-    // console.log(productObj);
+    console.log(productObj);
 
     //SEND DATA TO DATABASE
     axios.post('http://localhost:4000/rac/product/new', {productObj})
