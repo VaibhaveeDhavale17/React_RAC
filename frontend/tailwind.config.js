@@ -6,7 +6,14 @@ export default {
         "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        'poppins':['Poppins', 'sans-serif'],
+      },
+      colors:{
+        black:'#000000'
+      }
+    },
   },
   plugins: [
     require('flowbite/plugin'),

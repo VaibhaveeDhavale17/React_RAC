@@ -15,7 +15,7 @@ router.route("/user/forgotpassword").post(forgotPassword);
 router.route("/user/resetpassword/:token").put(resetPassword);
 
 // Get users details
-router.route("/user/getusers").get(getUserDetails);
+router.route("/user/getusers").get(isAuthenticatedUser,authorizeRoles("admin"),getUserDetails);
 
 // Update user details
 router.route("/user/updateuser/:id").put(updateUserDetails);

@@ -35,7 +35,7 @@ const Navbar = () => {
             </div>
             <div>
               {/* User Icon (replace with your icon or component) */}
-              <span className="text-xl">👤</span>
+              <span className="text-xl"> <FaUser className='cursor-pointer'/> </span>
             </div>
           </div>
         </div>

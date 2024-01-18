@@ -20,27 +20,27 @@ const MySidebar = () => {
       
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Sidebar.Item href="/dashboard" icon={HiChartPie} className='p-3' style={{ color: activeRoute === '/dashboard' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard' ? 'bold' : 'normal' }}>
+          <Sidebar.Item href="/dashboard" icon={HiChartPie} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard' ? 'bold' : 'normal' }}>
             Dashboard
           </Sidebar.Item>
-          <Sidebar.Item href="/dashboard/upload" icon={HiOutlineCloudUpload} className='p-3' style={{ color: activeRoute === '/dashboard/upload' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/upload' ? 'bold' : 'normal' }}>
+          <Sidebar.Item href="/dashboard/upload" icon={HiOutlineCloudUpload} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/upload' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/upload' ? 'bold' : 'normal' }}>
             Create Item
           </Sidebar.Item>
-          <Sidebar.Item href="/dashboard/manage" icon={HiInbox} className='p-3' style={{ color: activeRoute === '/dashboard/manage' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/manage' ? 'bold' : 'normal' }}>
+          <Sidebar.Item href="/dashboard/manage" icon={HiInbox} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/manage' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/manage' ? 'bold' : 'normal' }}>
             Manage items
           </Sidebar.Item>
-          <Sidebar.Item href="/dashboard/manageusers" icon={HiUser} className='p-3' style={{ color: activeRoute === '/dashboard/manageusers' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/manageusers' ? 'bold' : 'normal' }}>
+          <Sidebar.Item href="/dashboard/manageusers" icon={HiUser} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/manageusers' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/manageusers' ? 'bold' : 'normal' }}>
             Manage Users
           </Sidebar.Item>
-          <Sidebar.Item href="/dashboard/allitems" icon={FaList} className='p-3' style={{ color: activeRoute === '/dashboard/allitems' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/allitems' ? 'bold' : 'normal' }}>
+          <Sidebar.Item href="/dashboard/allitems" icon={FaList} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/allitems' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/allitems' ? 'bold' : 'normal' }}>
             All Products
           </Sidebar.Item>
 
-          <Sidebar.Item href="/dashboard/supplier" icon={FaUserFriends} className='p-3' style={{ color: activeRoute === '/dashboard/supplier' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/supplier' ? 'bold' : 'normal' }}>
+          <Sidebar.Item href="/dashboard/supplier" icon={FaUserFriends} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/supplier' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/supplier' ? 'bold' : 'normal' }}>
             Add Supplier
           </Sidebar.Item>
           
-          <Sidebar.Item href="/logout" icon={HiLogout} className='p-3' style={{ color: activeRoute === '/dashboard/logout' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/logout' ? 'bold' : 'normal' }}>
+          <Sidebar.Item href="/logout" icon={HiLogout} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/logout' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/logout' ? 'bold' : 'normal' }}>
             Log out
           </Sidebar.Item>
         </Sidebar.ItemGroup>

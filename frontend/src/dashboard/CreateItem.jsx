@@ -52,11 +52,20 @@ const CreateItem = () => {
     console.log(productObj);
 
     //SEND DATA TO DATABASE
-    axios.post('http://localhost:4000/rac/product/new', {productObj})
-    .then((response)=>console.log(response))
-    .catch((err)=>console.log(err));
+    // axios.post('', {productObj})
+    // .then((response)=>console.log(response))
+    // .catch((err)=>console.log(err));
 
-    console.log(productObj);
+    // console.log(productObj);
+
+    axios.post('http://localhost:4000/rac/product/new', productObj,{
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify(productObj)
+    })
+    .then((response) => console.log(response))
+    .catch((err) => console.log(err));
     
   }
 
@@ -75,23 +84,23 @@ const CreateItem = () => {
                 <input type="text" id="refNumber" className="form-control" placeholder=""/>
               </div>
               <div className="col-md-6">
-                <label className="form-label" htmlFor="name">Product Name</label>
+                <label className="form-label" htmlFor="productName">Product Name</label>
                 <div className="input-group input-group-merge">
                   <input className="form-control" type="text" id="name" name="name"/>
                 </div>
               </div>
 
               <div className="col-12">
-                <label className="form-label" htmlFor="description">Product Decription</label>
+                <label className="form-label" htmlFor="productDescription">Product Decription</label>
                 <textarea name="address" className="form-control" id="description" rows="2" placeholder=""></textarea>
               </div>
               <div className="col-md-6">
-                <label className="form-label" htmlFor="price">Product Price</label>
+                <label className="form-label" htmlFor="productPrice">Product Price</label>
                 <input type="text" id="price" className="form-control phone-mask"/>
               </div>
 
               <div className="col-md-6">
-                <label className="form-label" htmlFor="category">Product Categoory</label>
+                <label className="form-label" htmlFor="productCategory">Product Category</label>
                 <input type="text" id="category" className="form-control phone-mask"/>
               </div>
 
@@ -116,7 +125,7 @@ const CreateItem = () => {
               </div>
 
   <div>
-    <RangePicker onChange={(values) => {
+    <RangePicker className='p-3' placeholder={['Entry Date', 'Expiry Date']} onChange={(values) => {
       setDates(values.map(item=>{
         return (item).format('DD-MM-YYYY');
       }))
@@ -144,12 +153,6 @@ const CreateItem = () => {
               </div>
 
               
-              <div className="col-12">
-              <div className="col-md mb-5">
-                <label className="form-label " htmlFor="totalPrice">Total Price</label>
-                <input type="text" id="totalPrice" className="form-control" placeholder=""/>
-              </div>
-              </div>
               <div className="flex justify-center">
   <button type='submit' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded mb-5">
     Submit
