@@ -4,7 +4,7 @@ const {registerUser,loginUser,logoutUser,forgotPassword, resetPassword, getUserD
 const router = express.Router();
 
 // Register User 
-router.route("/user/register").post(isAuthenticatedUser,registerUser);
+router.route("/user/register").post(registerUser);
 
 // Login User
 router.route("/user/login").post(loginUser);
@@ -19,7 +19,7 @@ router.route("/user/forgotpassword").post(forgotPassword);
 router.route("/user/resetpassword/:token").put(resetPassword);
 
 // Get users details
-router.route("/user/getusers").get(isAuthenticatedUser,authorizeRoles("admin"),getUserDetails);
+router.route("/user/getusers").get(getUserDetails);
 
 // Update user details
 router.route("/user/updateuser/:id").put(updateUserDetails);

@@ -3,7 +3,6 @@ import {
     RouterProvider,
   } from "react-router-dom";
 import App from "../App";
-import Home from "../home/Home";
 import Signup from "../Components/Signup";
 import Login from "../Components/Login";
 import DashboardLayout from "../dashboard/DashboardLayout";
@@ -14,6 +13,7 @@ import EditItems from "../dashboard/EditItems";
 import ManageUsers from "../dashboard/ManageUsers";
 import GetAllItems from "../dashboard/GetAllItems";
 import AddSupplier from "../dashboard/AddSupplier";
+import SingleItem from "../dashboard/SingleItem";
 
   const router = createBrowserRouter([
     {
@@ -22,17 +22,14 @@ import AddSupplier from "../dashboard/AddSupplier";
       children:[
         {
             path:'/',
-            element:<Home />
+            element:<Login />
         },
         
         {
             path:'/signup',
-            element:<Signup/>
+            element:<Signup/>,
         },
-        {
-          path:'/login',
-          element:<Login/>
-        },
+
       ]
     },
 
@@ -50,7 +47,9 @@ import AddSupplier from "../dashboard/AddSupplier";
         },
         {
           path:"/dashboard/manage",
-          element:<ManageItems/>
+          element:<ManageItems/>,
+          loader: ({params}) => fetch(`http://localhost:4000/rac/product/${params.refNumber}`)
+
         },
         {
           path:'/dashboard/edit/:refNumber',
@@ -70,6 +69,11 @@ import AddSupplier from "../dashboard/AddSupplier";
           path:'/dashboard/supplier',
           element:<AddSupplier/>
         },
+        {
+          path:'/dashboard/item/:id',
+          element:<SingleItem/>,
+
+        }
       ]
     }
   ]);

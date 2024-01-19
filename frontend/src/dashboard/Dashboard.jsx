@@ -147,7 +147,7 @@ const Dashboard = () => {
           <canvas id="salesChart" width="400" height="200"></canvas>
         </div>
 
-        <div className="font-poppins text-[#000000] bg-white p-4 rounded-md shadow bg-white">
+        {/* <div className="font-poppins text-[#000000] bg-white p-4 rounded-md shadow bg-white">
         <div className="font-poppins text-[#000000] w-[690px] h-[308px] relative  rounded-[10px]">
     <div className="font-poppins text-[#000000] absolute  text-xl font-semibold ">Top Requirements</div>
     <div className="font-poppins text-[#000000] left-[10px]  top-[82px] absolute  text-sm font-medium leading-tight">Name</div>
@@ -168,7 +168,7 @@ const Dashboard = () => {
     <div className="font-poppins text-[#000000] left-[240px] top-[266px] absolute text-stone-500 text-sm font-medium leading-tight">₹ 105</div>
     <div className="font-poppins text-[#000000] left-[400px] top-[10px] absolute text-blue-800 text-sm font-normal">See All</div>
 </div>
-        </div>
+        </div> */}
 
 
        {/* </div> */}

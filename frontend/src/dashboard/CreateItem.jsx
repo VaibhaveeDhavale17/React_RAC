@@ -25,49 +25,41 @@ const CreateItem = () => {
     // console.log(selectedMonth);
   }
 
-  //HANDLE INSERT ITEMS
-  const handleInsertItems = (event) =>{
+
+  const handleInsertItems = async(event)=>{
     event.preventDefault();
     const form = event.target;
 
-    const refNumber = form.refNumber.value;
-    const productName = form.name.value;
-    const description = form.description.value;
-    const price = form.price.value;
-    const category = form.category.value;
-    const month = selectedMonth;
-    const entryDate = dates[0];
-    const expiryDate = dates[1];
-    const numOfProducts = form.numOfProducts.value;
-    const tax = form.tax.value;
-    const cgst = form.cgst.value;
-    const sgst = form.sgst.value;
-
     const productObj = {
-      refNumber, productName, description, price, category, month, 
-      entryDate, expiryDate,
-      numOfProducts, tax, cgst, sgst
+    refNumber : form.refNumber.value,
+     productName : form.name.value,
+     description : form.description.value,
+     price : form.price.value,
+     category : form.category.value,
+     month : selectedMonth,
+     entryDate : dates[0],
+     expiryDate : dates[1],
+     numOfProducts : form.numOfProducts.value,
+     tax : form.tax.value,
+     cgst : form.cgst.value,
+     sgst : form.sgst.value,
     }
 
     console.log(productObj);
 
-    //SEND DATA TO DATABASE
-    // axios.post('', {productObj})
-    // .then((response)=>console.log(response))
-    // .catch((err)=>console.log(err));
+    try{
+      const res = await axios.post('http://localhost:4000/rac/product/new', productObj);
 
-    // console.log(productObj);
+      console.log(`Item inserted successfully`, res.data);
+      alert('Item inserted successfully');
+      
+    }catch(err){
+      console.error(`item not inserted`, err);
 
-    axios.post('http://localhost:4000/rac/product/new', productObj,{
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      body:JSON.stringify(productObj)
-    })
-    .then((response) => console.log(response))
-    .catch((err) => console.log(err));
-    
+      alert(`Error`);;
+    }
   }
+
 
   return (
     <div className="card-body mt-2 pb-5 overflow-y-hidden">
