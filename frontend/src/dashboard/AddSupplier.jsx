@@ -2,7 +2,11 @@ import React from 'react'
 
 const AddSupplier = () => {
   return (
-    <div>AddSupplier</div>
+    <div>
+      <div className='bg-white w-full m-2 h-full '>
+
+      </div>
+    </div>
   )
 }
 

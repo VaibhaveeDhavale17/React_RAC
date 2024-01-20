@@ -4,7 +4,7 @@ const {registerUser,loginUser,logoutUser,forgotPassword, resetPassword, getUserD
 const router = express.Router();
 
 // Register User 
-router.route("/user/register").post(isAuthenticatedUser,registerUser);
+router.route("/user/register").post(registerUser);
 
 // Login User
 router.route("/user/login").post(loginUser);

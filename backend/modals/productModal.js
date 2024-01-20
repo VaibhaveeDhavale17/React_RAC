@@ -150,6 +150,16 @@ productSchema.pre('save', function(next){
     }catch(err){
         next(err);
     }
-})
+});
+
+productSchema.virtual("formattedExpiryDate").get(function(){
+    if(this.productExpiryDate){
+        const options = {day:"2digit", month:"2-digit", year:"numeric"};
+        return this.productExpiryDate.toLocaleDateString("en-IN", options);
+    }
+
+    return null;
+});
+
 
 module.exports=mongoose.model('Product', productSchema);

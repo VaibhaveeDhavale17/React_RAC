@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from '../Components/Navbar';
-import { FaDrumstickBite, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaCross, FaEdit, FaTrash } from 'react-icons/fa';
+
 
 const GetAllItems = () => {
   const [data, setMyData] = useState([]);
+  const [isFormVisible, setFormVisible] = useState(false);
+  const [selectedItemRefNumber, setSelectedItemRefNumber] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,30 +23,36 @@ const GetAllItems = () => {
     fetchData();
   }, []);
 
+  const handleDelete = async(itemRefnumber)=>{
+    try{
+
+      await axios.delete(`http://localhost:4000/rac/product/${itemRefnumber}`);
+
+    }catch(err){
+      console.error('error')
+    }
+  };
+
+  const handleButtonClick=(itemRefnumber)=>{
+    setSelectedItemRefNumber(itemRefnumber);
+    setFormVisible(true);
+  };
+
+  const handleCloseClick=()=>{
+    setFormVisible(false);
+  }
+
   return (
-    // <div className='flex-col'>
-    //   {/* <Navbar /> */}
-
-    //   <div className='flex flex-col mt-2 p-5 mt-3 mb-1' style={{ backgroundColor: 'white', boxShadow: '0 4px 8px rgba(0, 0, 1, 0.1)' }}>
-    //     {data.map((item, index) => (
-    //       <div key={index}>
-    //         <p>{item.productName}</p>
-    //         <p>{item.refNumber}</p>
-    //         <p>{item.productDescription}</p>
-    //         <p>{item.productPrice}</p>
-    //       </div>
-    //     ))}
-    //   </div>
-    // </div>
-
 
     <>
       <div className='flex flex-col mt-2 p-5 mt-3 mb-1 w-full' style={{backgroundColor:'white', boxShadow:'0 4px 8px rgba(0, 0, 1, 0.1)'}}>
+
+
         <table>
           <thead>
             <tr>
+              <th>Ref. Number</th>
               <th>Name</th>
-              <th>Reference Number</th>
               <th>Description</th>
               <th>Price</th>
               <th>Category</th>
@@ -52,18 +61,68 @@ const GetAllItems = () => {
 
             </tr>
           </thead>
+         
+        {isFormVisible && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+            <form className="bg-white p-8 rounded-md shadow-md">
+              <div className="flex justify-end">
+              
+                <button
+                  type="button"
+                  onClick={handleCloseClick}
+                  className="text-gray-600 hover:text-gray-800 focus:outline-none"
+                >
+                  
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <h4 className='font-poppins mb-6'>Are you sure you want to delete the item?</h4>
+
+              <div className='flex'>
+              <button
+                type="submit"
+                className="bg-blue-500 text-white w-20 p-2 mb-4 rounded-md m-auto"
+                onClick={handleCloseClick}
+              >
+                No
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 text-white w-20 p-2 mb-4 rounded-md m-auto"
+                onClick={()=>handleDelete(selectedItemRefNumber)}
+              >
+                Yes
+              </button>
+              </div>
+            </form>
+          </div>
+        )}
 
           <tbody>
             {
+
               data.map((item, index)=>(
                 <tr key={index} style={{borderBottom:'1px solid rgba(211,211,211, 0.8)'}}>
-                  <td className='pt-5'>{item.productName}</td>
                   <td className='pt-5'>{item.refNumber}</td>
+                  <td className='pt-5'>{item.productName}</td>
                   <td className='pt-5'>{item.productDescription}</td>
                   <td className='pt-5'>{item.productPrice}</td>
                   <td className='pt-5'>{item.productCategory}</td>
-                  <td className='p-3 pt-5'> <FaEdit className='cursor-pointer'/> </td>
-                  <td className='p-3 pt-5'> <FaTrash className=' hover:text-red-700 hover:cursor-pointer' /></td>
+                <td className='p-3 pt-5'> <Link to={{pathname:'/dashboard/manage', state:{item}}}> <FaEdit className='cursor-pointer text-lg text-green-500 hover:text-green-700 transition duration-300 ease-in-out' />
+</Link> </td>
+                  <td className='p-3 pt-5'> <FaTrash className='text-gray-600 text-lg hover:text-red-700 hover:cursor-pointer transition duration-300 ease-in-out' onClick={() => handleButtonClick(item.refNumber)} />
+</td>
                 </tr>
               ))
             }
