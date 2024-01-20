@@ -5,14 +5,14 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
   const [isFormVisible, setFormVisible] = useState(false);
-  const [selectedRole, setSelectedRole] = useState('user'); // Set the default role to 'user'
+  const [selectedRole, setSelectedRole] = useState('user');
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get("http://localhost:4000/rac/user/getusers");
         setUsers(response.data.user);
-        console.log(response.data.user);
+        // console.log(response.data.user);
       } catch (err) {
         console.log('Error fetching data', err);
       }
@@ -32,27 +32,33 @@ const ManageUsers = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    const form = event.target;
 
-    // Get form data
     const formData = {
-      username: event.target.elements.username.value,
-      email: event.target.elements.email.value,
-      password: event.target.elements.password.value,
+     userName:form.userName.value,
+      userEmail: form.userEmail.value,
+      userPassword: form.userPassword.value,
       role: selectedRole,
     };
 
-    try {
-      // Make a POST request to your backend endpoint
-      const response = await axios.post("http://localhost:4000/rac/user/createuser", formData);
+    console.log(formData);
 
-      // Handle the response (e.g., display a success message)
+    try {
+      const response = await axios.post("http://localhost:4000/rac/user/register", formData);
+
       console.log('Form submitted successfully', response.data);
 
-      // Close the form after successful submission
       setFormVisible(false);
+
+      const updatedUsers = await axios.get("http://localhost:4000/rac/user/getusers");
+      setUsers(updatedUsers.data.user);
+
+      // Display alert message after successful submission
+      alert('Form submitted successfully');
     } catch (error) {
-      // Handle errors (e.g., display an error message)
       console.error('Error submitting form', error);
+      // Display alert message for the error
+      alert('Error submitting form. Please try again.');
     }
   };
 
@@ -61,12 +67,10 @@ const ManageUsers = () => {
   };
 
   const handleEdit = (userId) => {
-    // Implement the edit functionality here
     console.log(`Editing user with ID ${userId}`);
   };
 
   const handleDelete = (userId) => {
-    // Implement the delete functionality here
     console.log(`Deleting user with ID ${userId}`);
   };
 
@@ -108,7 +112,7 @@ const ManageUsers = () => {
                 Username:
                 <input
                   type="text"
-                  name="username"
+                  name="userName"
                   className="border border-gray-300 p-2 w-full"
                 />
               </label>
@@ -116,7 +120,7 @@ const ManageUsers = () => {
                 Email:
                 <input
                   type="email"
-                  name="email"
+                  name="userEmail"
                   className="border border-gray-300 p-2 w-full"
                 />
               </label>
@@ -124,7 +128,7 @@ const ManageUsers = () => {
                 Password:
                 <input
                   type="password"
-                  name="password"
+                  name="userPassword"
                   className="border border-gray-300 p-2 w-full"
                 />
               </label>
@@ -159,7 +163,9 @@ const ManageUsers = () => {
                 <th className="font-poppins text-[#000000] border p-2">Name</th>
                 <th className="font-poppins text-[#000000] border p-2">Email</th>
                 <th className="font-poppins text-[#000000] border p-2">Role</th>
-                <th className="font-poppins text-[#000000] border p-2">Actions</th>
+                <th className="font-poppins text-[#000000] border p-2">Edit</th>
+                <th className="font-poppins text-[#000000] border p-2">Delete</th>
+                
               </tr>
             </thead>
             <tbody>
@@ -169,14 +175,16 @@ const ManageUsers = () => {
                   <td className="font-poppins text-[#000000] border p-2">{user.userName}</td>
                   <td className="font-poppins text-[#000000] border p-2">{user.userEmail}</td>
                   <td className="font-poppins text-[#000000] border p-2">{user.role}</td>
-                  <td className="font-poppins flex  p-2">
+                  <td className="font-poppins text-[#000000] border p-2">
                     <button onClick={() => handleEdit(user._id)}>
-                      <FaEdit className='mr-5' style={{color:'#06c20f', fontSize:'2em'}} />
+                      <FaEdit />
                     </button>
+                    </td>
+                    <td className="font-poppins text-[#000000] border p-2">
                     <button onClick={() => handleDelete(user._id)}>
-                      <FaTrash className='' style={{color:'#de071c', fontSize:'1.5rem'}} />
+                      <FaTrash className="cursor-pointer text-[#000000]" />
                     </button>
-                  </td>
+                    </td>
                 </tr>
               ))}
             </tbody>
@@ -187,4 +195,4 @@ const ManageUsers = () => {
   );
 };
 
-export default ManageUsers
+export default ManageUsers;

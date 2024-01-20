@@ -2,17 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import './CreateItem.css'
 import 'react-tailwindcss-datepicker'
 import axios from 'axios';
-import {DatePicker} from 'antd';
-const {RangePicker} = DatePicker;
-
-///Push from vaibhavee try
-
 
 const CreateItem = () => {
-
-  const [dates, setDates] = useState([]);
-  console.log(dates);
-  
+ 
 
   //GET SELECTED MONTH
   const [selectedMonth, setSelelectedMonth] = useState('');
@@ -25,6 +17,12 @@ const CreateItem = () => {
     // console.log(selectedMonth);
   }
 
+  const formatDateString = (dateString) => {
+    const [day, month, year] = dateString.split('-');
+    // Ensure proper formatting (assuming dd-mm-yyyy)
+    return `${year}-${month}-${day}`;
+  };
+
 
   const handleInsertItems = async(event)=>{
     event.preventDefault();
@@ -32,31 +30,40 @@ const CreateItem = () => {
 
     const productObj = {
     refNumber : form.refNumber.value,
-     productName : form.name.value,
-     description : form.description.value,
-     price : form.price.value,
-     category : form.category.value,
+     productName : form.productName.value,
+     productDescription : form.productDescription.value,
+     productPrice : form.productPrice.value,
+     productCategory : form.productCategory.value,
      month : selectedMonth,
-     entryDate : dates[0],
-     expiryDate : dates[1],
+     productEntryDate: formatDateString(form.productEntryDate.value),
+      productExpiryDate: formatDateString(form.productExpiryDate.value),
      numOfProducts : form.numOfProducts.value,
      tax : form.tax.value,
      cgst : form.cgst.value,
      sgst : form.sgst.value,
-    }
+    };
 
     console.log(productObj);
 
     try{
-      const res = await axios.post('http://localhost:4000/rac/product/new', productObj);
+      const res = await axios.post("http://localhost:4000/rac/product/new", productObj);
 
       console.log(`Item inserted successfully`, res.data);
       alert('Item inserted successfully');
       
     }catch(err){
-      console.error(`item not inserted`, err);
+      console.error(`Item not inserted`, err.message);
 
-      alert(`Error`);;
+      if (err.response) {
+        // Accessing the error response from the server
+        const errorResponse = err.response.data;
+  
+        console.error(`Server error response:`, errorResponse);
+        alert(`Error: ${errorResponse.message}`);
+      } else {
+        console.error(`Error during item insertion`, err);
+        alert(`Error`);
+      }
     }
   }
 
@@ -73,31 +80,31 @@ const CreateItem = () => {
             <div className="row g-3">
               <div className="col-md-6">
                 <label className="form-label" htmlFor="refNumber">Product Reference Number</label>
-                <input type="text" id="refNumber" className="form-control" placeholder=""/>
+                <input type="text" id="refNumber" name="refNumber" className="form-control" placeholder=""/>
               </div>
               <div className="col-md-6">
                 <label className="form-label" htmlFor="productName">Product Name</label>
                 <div className="input-group input-group-merge">
-                  <input className="form-control" type="text" id="name" name="name"/>
+                  <input className="form-control" type="text" id="productName" name="productName"/>
                 </div>
               </div>
 
               <div className="col-12">
                 <label className="form-label" htmlFor="productDescription">Product Decription</label>
-                <textarea name="address" className="form-control" id="description" rows="2" placeholder=""></textarea>
+                <textarea name="productDescription" className="form-control" id="productDescription" rows="2" placeholder=""></textarea>
               </div>
               <div className="col-md-6">
                 <label className="form-label" htmlFor="productPrice">Product Price</label>
-                <input type="text" id="price" className="form-control phone-mask"/>
+                <input type="text" id="productPrice" name="productPrice" className="form-control phone-mask"/>
               </div>
 
               <div className="col-md-6">
                 <label className="form-label" htmlFor="productCategory">Product Category</label>
-                <input type="text" id="category" className="form-control phone-mask"/>
+                <input type="text" id="productCategory" name="productCategory" className="form-control phone-mask"/>
               </div>
 
               <div className="col-md">
-                <label className="form-label" htmlFor="month">Entry Month</label>
+                <label className="form-label" htmlFor="month" id='month' name="month">Entry Month</label>
                 <div className="position-relative"><select onChange={handleMonthChange} id="month" className="select2 form-select select2-hidden-accessible" data-allow-clear="true" data-select2-id="month" tabIndex="-1" aria-hidden="true">
                   <option value="" data-select2-id="2">Select</option>
                   <option value="01">January</option>
@@ -116,32 +123,33 @@ const CreateItem = () => {
                 </select><span className="select2 select2-container select2-container--default" dir="ltr" data-select2-id="1" style={{ width: '288.781px' }}><span className="selection"><span className="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabIndex="0" aria-disabled="false" aria-labelledby="select2-state-container"><span className="select2-selection__rendered" id="select2-state-container" role="textbox" aria-readonly="true"><span className="select2-selection__placeholder"></span></span><span className="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span className="dropdown-wrapper" aria-hidden="true"></span></span></div>
               </div>
 
-  <div>
-    <RangePicker className='p-3' placeholder={['Entry Date', 'Expiry Date']} onChange={(values) => {
-      setDates(values.map(item=>{
-        return (item).format('DD-MM-YYYY');
-      }))
-    }}
+              <div className="col-md-6">
+                <label className="form-label" htmlFor="productEntryDate">Product Entry Date</label>
+                <input type="text" id="productEntryDate" name="productEntryDate" className="form-control phone-mask" placeholder=""/>
+              </div>
 
-      />
-  </div>
+              <div className="col-md-6">
+                <label className="form-label" htmlFor="productExpiryDate">Product Expiry Date</label>
+                <input type="text" id="productExpiryDate" name="productExpiryDate" className="form-control phone-mask" placeholder=""/>
+              </div>
+
 
               <div className="col-md-6">
                 <label className="form-label" htmlFor="numOfProducts">Number of Products</label>
-                <input type="text" id="numOfProducts" className="form-control phone-mask" placeholder=""/>
+                <input type="text" id="numOfProducts" name="numOfProducts" className="form-control phone-mask" placeholder=""/>
               </div>
               
               <div className="col-md-6">
                 <label className="form-label" htmlFor="tax">tax</label>
-                <input type="text" id="tax" className="form-control" placeholder=""/>
+                <input type="text" id="tax" name="tax" className="form-control" placeholder=""/>
               </div>
               <div className="col-md-6">
                 <label className="form-label" htmlFor="cgst">CGST</label>
-                <input type="text" id="cgst" className="form-control" placeholder=""/>
+                <input type="text" id="cgst" name="cgst" className="form-control" placeholder=""/>
               </div>
               <div className="col-md">
-                <label className="form-label" htmlFor="sgst">SGST</label>
-                <input type="text" id="sgst" className="form-control" placeholder=""/>
+                <label className="form-label" htmlFor= "sgst">SGST</label>
+                <input type="text" id="sgst" name="sgst" className="form-control" placeholder=""/>
               </div>
 
               
@@ -151,7 +159,7 @@ const CreateItem = () => {
   </button>
 </div>
               </div>
-              </form>
+  </form>
               </div>
               </div>
               </div>
