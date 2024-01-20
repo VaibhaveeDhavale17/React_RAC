@@ -71,6 +71,7 @@ const ManageUsers = () => {
   };
 
   const handleDelete = (userId) => {
+    // Implement the delete functionality here
     console.log(`Deleting user with ID ${userId}`);
   };
 
@@ -195,4 +196,4 @@ const ManageUsers = () => {
   );
 };
 
-export default ManageUsers;
+export default ManageUsers
