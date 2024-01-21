@@ -13,7 +13,6 @@ import EditItems from "../dashboard/EditItems";
 import ManageUsers from "../dashboard/ManageUsers";
 import GetAllItems from "../dashboard/GetAllItems";
 import AddSupplier from "../dashboard/AddSupplier";
-import SingleItem from "../dashboard/SingleItem";
 
   const router = createBrowserRouter([
     {
@@ -48,7 +47,6 @@ import SingleItem from "../dashboard/SingleItem";
         {
           path:"/dashboard/manage",
           element:<ManageItems/>,
-          loader: ({params}) => fetch(`http://localhost:4000/rac/product/${params.refNumber}`)
 
         },
         {
@@ -69,11 +67,6 @@ import SingleItem from "../dashboard/SingleItem";
           path:'/dashboard/supplier',
           element:<AddSupplier/>
         },
-        {
-          path:'/dashboard/item/:id',
-          element:<SingleItem/>,
-
-        }
       ]
     }
   ]);

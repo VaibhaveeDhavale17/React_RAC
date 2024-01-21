@@ -24,8 +24,9 @@ const productSchema =new mongoose.Schema({
         maxLength:[8, "Price cannot exceed 8 figures"]
     },
     productCategory:{
-        required:true,
         type:String,
+        required:[true, "Please enter Product Category"],
+        
     },
 
     month:{
@@ -49,6 +50,8 @@ const productSchema =new mongoose.Schema({
 
     numOfProducts:{
         type:Number,
+        required:[true, "Please enter product stock"],
+        maxLength:[4, "Stock cannot exceed 4 characters"],
         default:0,
     },
 
