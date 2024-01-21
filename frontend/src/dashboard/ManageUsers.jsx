@@ -70,9 +70,19 @@ const ManageUsers = () => {
     console.log(`Editing user with ID ${userId}`);
   };
 
-  const handleDelete = (userId) => {
+  const handleDelete = async (userId) => {
     // Implement the delete functionality here
-    console.log(`Deleting user with ID ${userId}`);
+    try {
+      // Make an API request to delete the user with the specified ID
+      await axios.delete(`http://localhost:4000/rac/user/deleteuser/${userId}`);
+      // Update the state to reflect the deleted user
+      setUsers((prevUsers) => prevUsers.filter(user => user._id !== userId));
+      console.log(`Deleted user with ID ${userId}`);
+      alert(`Deleted user with ID ${userId}`);
+
+    } catch (err) {
+      console.log('Error deleting user', err);
+    }
   };
 
   return (
