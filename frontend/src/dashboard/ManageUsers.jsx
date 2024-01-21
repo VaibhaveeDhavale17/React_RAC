@@ -76,37 +76,14 @@
       }
     };
 
-    const handleEdit = (userId) => {
-      setIsEditing(true);
-      setEditedUserId(userId);
+  const handleEdit = (userId) => {
+    console.log(`Editing user with ID ${userId}`);
+  };
 
-      // Fetch the user data based on userId and populate the form
-      const userToEdit = users.find((user) => user._id === userId);
-
-      formRef.current.userName.value = userToEdit.userName;
-      formRef.current.userEmail.value = userToEdit.userEmail;
-      formRef.current.userPassword.value = userToEdit.userPassword;
-      setSelectedRole(userToEdit.role);
-
-      setFormVisible(true);
-    };
-
-    const handleDelete = async (userId) => {
-      try {
-        const response = await axios.delete(`http://localhost:4000/rac/user/${userId}`);
-        console.log('User deleted successfully', response.data);
-
-        const updatedUsers = await axios.get("http://localhost:4000/rac/user/getusers");
-        setUsers(updatedUsers.data.user);
-
-        alert('User deleted successfully');
-      } catch (error) {
-        console.error('Error deleting user', error);
-        alert('Error deleting user. Please try again.');
-      }
-    };
-
-    const formRef = React.createRef(); // Create a ref to access the form
+  const handleDelete = (userId) => {
+    // Implement the delete functionality here
+    console.log(`Deleting user with ID ${userId}`);
+  };
 
     return (
       <>
@@ -231,4 +208,4 @@
     );
   };
 
-  export default ManageUsers;
+export default ManageUsers

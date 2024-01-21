@@ -3,7 +3,8 @@ import {
     RouterProvider,
   } from "react-router-dom";
 import App from "../App";
-import Signup from "../Components/Signup";
+import Forgotpassword from "../Components/forgotpassword";
+import Resetpassword from "../Components/resetpassword";
 import Login from "../Components/Login";
 import DashboardLayout from "../dashboard/DashboardLayout";
 import Dashboard from "../dashboard/Dashboard";
@@ -25,10 +26,13 @@ import AddSupplier from "../dashboard/AddSupplier";
         },
         
         {
-            path:'/signup',
-            element:<Signup/>,
+            path:'/forgotpassword',
+            element:<Forgotpassword/>,
         },
-
+        {
+          path:'/resetpassword/:token',
+          element:<Resetpassword/>,
+        }
       ]
     },
 
