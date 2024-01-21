@@ -51,13 +51,13 @@ const GetAllItems = () => {
         <table>
           <thead>
             <tr>
-              <th className='font-poppins text-black'>Ref. Number</th>
-              <th className='font-poppins text-black'>Name</th>
-              <th className='font-poppins text-black'>Description</th>
-              <th className='font-poppins text-black'>Price</th>
-              <th className='font-poppins text-black'>Category</th>
-              <th className=''>Edit</th>
-              <th className='font-poppins text-black'>Delete</th>
+              <th className='font-poppins text-[#000000] font-bold'>Ref. Number</th>
+              <th className='font-poppins text-[#000000] font-bold '>Name</th>
+              <th className='font-poppins text-[#000000] font-bold'>Description</th>
+              <th className='font-poppins text-[#000000] font-bold'>Price</th>
+              <th className='font-poppins text-[#000000] font-bold'>Category</th>
+              <th className='font-poppins text-[#000000] font-bold'>Edit</th>
+              <th className='font-poppins text-[#000000] font-bold'>Delete</th>
 
             </tr>
           </thead>
@@ -114,12 +114,12 @@ const GetAllItems = () => {
 
               data.map((item, index)=>(
                 <tr key={index} style={{borderBottom:'1px solid rgba(211,211,211, 0.8)'}}>
-                  <td className='pt-5 font-poppins text-black '>{item.refNumber}</td>
-                  <td className='pt-5 font-poppins text-black'>{item.productName}</td>
-                  <td className='pt-5 font-poppins text-black'>{item.productDescription}</td>
-                  <td className='pt-5 font-poppins text-black'>Rs. {item.productPrice}</td>
-                  <td className='pt-5 font-poppins text-black'>{item.productCategory}</td>
-                <td className='p-3 pt-5 font-poppins text-black'> <Link to={{pathname:'/dashboard/manage', state:{item}}}> <FaEdit className='cursor-pointer text-lg text-green-500 hover:text-green-700 transition duration-300 ease-in-out' />
+                  <td className='pt-5 font-poppins text-[#000000] '>{item.refNumber}</td>
+                  <td className='pt-5 font-poppins text-[#000000]'>{item.productName}</td>
+                  <td className='pt-5 font-poppins text-[#000000]'>{item.productDescription}</td>
+                  <td className='pt-5 font-poppins text-[#000000]'>Rs. {item.productPrice}</td>
+                  <td className='pt-5 font-poppins text-[#000000]'>{item.productCategory}</td>
+                <td className='p-3 pt-5 font-poppins text-[#000000]'> <Link to={{pathname:'/dashboard/manage', state:{item}}}> <FaEdit className='cursor-pointer text-lg text-green-500 hover:text-green-700 transition duration-300 ease-in-out' />
 </Link> </td>
                   <td className='p-3 pt-5'> <FaTrash className='text-gray-600 text-lg hover:text-red-700 hover:cursor-pointer transition duration-300 ease-in-out' onClick={() => handleButtonClick(item.refNumber)} />
 </td>

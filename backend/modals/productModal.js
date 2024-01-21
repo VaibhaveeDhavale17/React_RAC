@@ -97,8 +97,6 @@ const productSchema =new mongoose.Schema({
         type:String,
     },
 
-    
-    
 });
 
 
@@ -147,7 +145,7 @@ productSchema.pre('save', function(next){
         this.tax = (this.productPrice * this.taxPercentage)/100;
         this.cgst = (this.productPrice * this.cgstPercentage)/100;
         this.sgst = (this.productPrice * this.sgstPercentage)/100;
-        this.totalPrice = (this.productPrice * this.numOfProducts) + this.tax + this.cgst + this.sgst;
+        this.totalPrice = (this.productPrice * this.numOfProducts) + this.tax;
 
         next();
     }catch(err){

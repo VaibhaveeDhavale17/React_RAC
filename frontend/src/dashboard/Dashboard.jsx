@@ -97,13 +97,14 @@ const Dashboard = () => {
 
         const res = await axios.get('http://localhost:4000/rac/products/expiry');
         setscheduleExpiryDate(res.data.scheduleExpiryDate);
+        console.log(scheduleExpiryDate)
 
       }catch(e){
         console.log(e)
       }
     }
 
-    // fetchExpiredProducts();
+    fetchExpiredProducts();
   }, [])
 
   const [totalCategories, setNumCategories] = useState("0");
@@ -146,30 +147,6 @@ const Dashboard = () => {
           <h2 className="font-poppins text-[#000000] text-xl font-semibold mb-4">Sales Overview</h2>
           <canvas id="salesChart" width="400" height="200"></canvas>
         </div>
-
-        {/* <div className="font-poppins text-[#000000] bg-white p-4 rounded-md shadow bg-white">
-        <div className="font-poppins text-[#000000] w-[690px] h-[308px] relative  rounded-[10px]">
-    <div className="font-poppins text-[#000000] absolute  text-xl font-semibold ">Top Requirements</div>
-    <div className="font-poppins text-[#000000] left-[10px]  top-[82px] absolute  text-sm font-medium leading-tight">Name</div>
-    <div className="font-poppins text-[#000000] left-[94px] top-[82px] absolute  text-sm font-medium leading-tight">Used Quantity</div>
-    <div className="font-poppins text-[#000000] left-[240px] top-[82px] absolute  text-sm font-medium leading-tight">Price</div>
-    <div className="font-poppins text-[#000000] left-[312px] top-[82px] absolute  text-sm font-medium leading-tight">Remaining Quantity</div>
-    <div className="font-poppins text-[#000000] left-[10px] top-[136px] absolute text-stone-500 text-sm font-medium leading-tight">Paint</div>
-    <div className="font-poppins text-[#000000] left-[10px] top-[201px] absolute text-stone-500 text-sm font-medium leading-tight">xyz</div>
-    <div className="font-poppins text-[#000000] left-[10px] top-[266px] absolute text-stone-500 text-sm font-medium leading-tight">abc</div>
-    <div className="font-poppins text-[#000000] left-[140px] top-[136px] absolute text-stone-500 text-sm font-medium leading-tight">30</div>
-    <div className="font-poppins text-[#000000] left-[140px] top-[201px] absolute text-stone-500 text-sm font-medium leading-tight">21</div>
-    <div className="font-poppins text-[#000000] left-[140px] top-[266px] absolute text-stone-500 text-sm font-medium leading-tight">19</div>
-    <div className="font-poppins text-[#000000] left-[362px] top-[136px] absolute text-stone-500 text-sm font-medium leading-tight">12</div>
-    <div className="font-poppins text-[#000000] left-[362px] top-[201px] absolute text-stone-500 text-sm font-medium leading-tight">15</div>
-    <div className="font-poppins text-[#000000] left-[362px] top-[266px] absolute text-stone-500 text-sm font-medium leading-tight">17</div>
-    <div className="font-poppins text-[#000000] left-[240px] top-[136px] absolute text-stone-500 text-sm font-medium leading-tight">₹ 100</div>
-    <div className="font-poppins text-[#000000] left-[240px] top-[201px] absolute text-stone-500 text-sm font-medium leading-tight">₹ 207</div>
-    <div className="font-poppins text-[#000000] left-[240px] top-[266px] absolute text-stone-500 text-sm font-medium leading-tight">₹ 105</div>
-    <div className="font-poppins text-[#000000] left-[400px] top-[10px] absolute text-blue-800 text-sm font-normal">See All</div>
-</div>
-        </div> */}
-
 
        {/* </div> */}
         </div>
@@ -272,8 +249,8 @@ const Dashboard = () => {
             <div className="font-poppins text-[#000000] w-[345px] h-20 pt-5 justify-start items-center gap-[26px] inline-flex">
     <img className="font-poppins text-[#000000] w-[60px] h-[70px] rounded" src="https://via.placeholder.com/60x70" />
     <div className="font-poppins text-[#000000] w-[181px] flex-col  justify-start items-start gap-1 inline-flex">
-        <div className="font-poppins text-[#000000]  text-base font-semibold leading-normal">{scheduleExpiryDate.productName}</div>
-        <div className="font-poppins text-[#000000] w-[201px] h-5  text-sm font-normal leading-tight">Expiry Date : {scheduleExpiryDate.expiryDate}</div>
+        <div className="font-poppins text-[#000000]  text-base font-semibold leading-normal">{scheduleExpiryDate}</div>
+        <div className="font-poppins text-[#000000] w-[201px] h-5  text-sm font-normal leading-tight">Expiry Date : {scheduleExpiryDate}</div>
         <div className="font-poppins text-[#000000] w-[201px] h-5  text-sm font-normal leading-tight">Quantity : 1</div>
     </div>
     <div className="font-poppins text-[#000000] mix-blend-multiply justify-start items-start flex">

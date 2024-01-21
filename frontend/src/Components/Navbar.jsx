@@ -21,9 +21,9 @@ const Navbar = () => {
               placeholder="Search product, supplier, order..."
               className="border rounded-md p-2 mr-5 w-80"
             />
-            <button className="bg-blue-500 text-white p-2 rounded-md">
-              Search
-            </button>
+            <button className="flex flex-col bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+          Search
+        </button>
           </div>
 
           {/* Notification and User Icons */}
