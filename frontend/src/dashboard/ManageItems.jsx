@@ -88,7 +88,6 @@ const ManageItems = () => {
     <div class="left-[283px] top-[400px] absolute text-gray-500 text-base font-medium font-poppins text-black leading-normal">40</div>
     <div class="left-[283px] top-[460px] absolute text-gray-500 text-base font-medium font-poppins text-black leading-normal">{itemInfo.numOfProducts}</div>
     <div class="w-[75px] h-0.5 left-[16px] top-[109px] absolute bg-blue-600 rounded-[10px]"></div>
-    <div class="w-[689px] h-10 left-[37px] top-[653px] absolute opacity-50 bg-gray-100 border-b border-gray-100"></div>
     <div class="left-[43px] top-[591px] absolute text-gray-500 text-sm font-semibold font-poppins text-black leading-tight">Store Name</div>
     <div class="left-[592px] top-[591px] absolute text-gray-500 text-sm font-semibold font-poppins text-black leading-tight">Stock in hand</div>
    <div className=''>
