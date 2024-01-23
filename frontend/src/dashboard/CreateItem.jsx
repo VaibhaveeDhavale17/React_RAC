@@ -66,6 +66,14 @@ const CreateItem = () => {
     }
   }
 
+  const handleKeyPress = (e) => {
+    // Check if the pressed key is "Enter" (key code 13)
+    if (e.key === 'Enter') {
+      // Trigger form submission
+      handleInsertItems(e);
+    }
+  }
+
 
   return (
     <div className="card-body mt-2 pb-5 overflow-y-hidden">
