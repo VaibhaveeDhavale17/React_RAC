@@ -7,9 +7,9 @@ import Navbar from '../Components/Navbar'
 
 const DashboardLayout = () => {
   return (
-    <div className='flex flex-col h-2'>
+    <div className='font-poppins flex flex-col h-2'>
       <Navbar/>
-    <div className='flex gap-4 '>
+    <div className='font-poppins flex gap-4 '>
     
     
       <MySidebar />
