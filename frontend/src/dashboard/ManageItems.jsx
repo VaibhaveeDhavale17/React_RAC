@@ -81,17 +81,18 @@ const ManageItems = () => {
           <h4 className='font-poppins font-bold text-black'>Enter the Reference Number of the item you want to edit</h4>
           <div className="text-center">
             <input
-              className='m-3 border rounded-md p-2 mr-5 w-80'
+              className='m-3 border rounded-md p-3 mr-5 w-80'
               type="text"
               id='refNumber'
               name='refNumber'
               placeholder='Reference Number'
               value={refNumber}
+              autoComplete='off'
               onChange={(e) => setRefNumber(e.target.value)}
               onKeyDown={handleEnterKeyPress}
             />
             <button
-              className="bg-blue-500 hover:bg-blue-700 font-poppins text-white font-bold py-2 px-4 border border-blue-700 rounded"
+              className="bg-blue-500 hover:bg-blue-700 font-poppins text-white font-bold py-3 px-4 border border-blue-700 rounded"
               onClick={handleSearch}
             >
               Search

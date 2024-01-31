@@ -122,12 +122,13 @@ const ManageUsers = () => {
   return (
     <>
       <div className="font-poppins text-[#000000] space-y-4 container mx-auto my-8">
-        <button
-          onClick={handleButtonClick}
-          className="flex flex-col bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
-        >
-          Add User
-        </button>
+      <button
+  onClick={handleButtonClick}
+  className="flex flex-col bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded ml-auto"
+>
+  Add User
+</button>
+
 
         {isFormVisible && (
           <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
