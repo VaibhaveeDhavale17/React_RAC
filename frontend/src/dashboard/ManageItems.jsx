@@ -6,6 +6,7 @@ const ManageItems = () => {
   const [refNumber, setRefNumber] = useState('');
   const [itemInfo, setItemInfo] = useState(null);
   const [companyInfo, setCompanyInfo] = useState(null);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
 
   const handleSearch = async () => {
