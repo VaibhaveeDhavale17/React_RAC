@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Sidebar } from 'flowbite-react';
 import {  HiChartPie, HiInbox,  HiOutlineCloudUpload, HiUser, HiLogout} from 'react-icons/hi';
-import { FaList, FaUserFriends} from 'react-icons/fa';
+import { FaList, FaPlus, FaUserFriends} from 'react-icons/fa';
 import {useLocation,useNavigate} from 'react-router-dom'; 
 
 import axios from 'axios';
@@ -48,8 +48,12 @@ const MySidebar = () => {
             All Products
           </Sidebar.Item>
 
-          <Sidebar.Item href="/dashboard/supplier" icon={FaUserFriends} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/supplier' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/supplier' ? 'bold' : 'normal' }}>
+          <Sidebar.Item href="/dashboard/supplier" icon={FaPlus} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/supplier' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/supplier' ? 'bold' : 'normal' }}>
             Add Supplier
+          </Sidebar.Item>
+
+          <Sidebar.Item href="/dashboard/allsupplier" icon={FaUserFriends} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/allsupplier' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/allsupplier' ? 'bold' : 'normal' }}>
+            All Supplier
           </Sidebar.Item>
 
           <Sidebar.Item href="/dashboard/manage" icon={HiInbox} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/manage' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/manage' ? 'bold' : 'normal' }}>

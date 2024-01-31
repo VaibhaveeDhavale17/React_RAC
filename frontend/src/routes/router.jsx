@@ -14,6 +14,7 @@ import EditItems from "../dashboard/EditItems";
 import ManageUsers from "../dashboard/ManageUsers";
 import GetAllItems from "../dashboard/GetAllItems";
 import AddSupplier from "../dashboard/AddSupplier";
+import AllSupplier from "../dashboard/AllSupplier";
 
   const router = createBrowserRouter([
     {
@@ -71,6 +72,11 @@ import AddSupplier from "../dashboard/AddSupplier";
           path:'/dashboard/supplier',
           element:<AddSupplier/>
         },
+
+        {
+          path:'/dashboard/allsupplier',
+          element:<AllSupplier/>
+        }
       ]
     }
   ]);
