@@ -183,11 +183,11 @@ Get user details
 **************/
 
 exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
-  const users = await User.find({ status: "accepted" });
+  const user = await User.find({ status: "accepted" });
 
   res.status(200).json({
     success: true,
-    users,
+    user,
   });
 });
 
