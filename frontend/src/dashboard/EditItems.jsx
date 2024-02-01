@@ -63,7 +63,7 @@ const EditItems = () => {
           <div className="col-lg-8 mx-auto mt-5 p-5 "  style={{ backgroundColor: 'white', boxShadow: '0 4px 8px rgba(0, 0, 1, 0.1)' }} >
 
           <div className="flex flex-col items-center mb-2 ">
-  <h5 className="mb-4 text-center">Update The Item</h5>
+  <h5 className="font-bold mb-4 text-center">Update The Item</h5>
 </div>
     <form onSubmit={handleUpdate}>
             <div className="row g-3">

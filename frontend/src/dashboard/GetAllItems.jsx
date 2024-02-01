@@ -46,8 +46,6 @@ const GetAllItems = () => {
 
     <>
       <div className='flex flex-col mt-2 p-5 mt-3 mb-1 w-full' style={{backgroundColor:'white', boxShadow:'0 4px 8px rgba(0, 0, 1, 0.1)'}}>
-
-
         <table>
           <thead>
             <tr>
