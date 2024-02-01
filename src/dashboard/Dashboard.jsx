@@ -138,7 +138,7 @@ const Dashboard = () => {
               <h3 className="font-poppins text-[#000000] text-lg  mb-2">
                 Total Stock Available{' '}
               </h3>
-              <p className="font-poppins text-[#000000] ">{totalStockCount}</p>
+              <p className="font-poppins text-[#000000] text-gray-600">{totalStockCount}</p>
             </div>          
 
            {/* Sales Overview */}

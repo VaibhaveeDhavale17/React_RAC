@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Sidebar } from 'flowbite-react';
 import {  HiChartPie, HiInbox,  HiOutlineCloudUpload, HiUser, HiLogout} from 'react-icons/hi';
-import { FaList, FaPlus, FaUserFriends} from 'react-icons/fa';
+import { FaList, FaUserFriends} from 'react-icons/fa';
 import {useLocation,useNavigate} from 'react-router-dom'; 
 
 import axios from 'axios';
@@ -48,12 +48,8 @@ const MySidebar = () => {
             All Products
           </Sidebar.Item>
 
-          <Sidebar.Item href="/dashboard/supplier" icon={FaPlus} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/supplier' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/supplier' ? 'bold' : 'normal' }}>
+          <Sidebar.Item href="/dashboard/supplier" icon={FaUserFriends} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/supplier' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/supplier' ? 'bold' : 'normal' }}>
             Add Supplier
-          </Sidebar.Item>
-
-          <Sidebar.Item href="/dashboard/allsupplier" icon={FaUserFriends} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/allsupplier' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/allsupplier' ? 'bold' : 'normal' }}>
-            All Supplier
           </Sidebar.Item>
 
           <Sidebar.Item href="/dashboard/manage" icon={HiInbox} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/manage' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/manage' ? 'bold' : 'normal' }}>
@@ -62,7 +58,10 @@ const MySidebar = () => {
           <Sidebar.Item href="/dashboard/manageusers" icon={HiUser} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/manageusers' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/manageusers' ? 'bold' : 'normal' }}>
             Manage Users
           </Sidebar.Item>
-    
+          
+
+         
+          
           <Sidebar.Item
               onClick={handleLogout} // Add onClick event for the logout button
               icon={HiLogout}

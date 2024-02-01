@@ -15,15 +15,7 @@ const Navbar = () => {
         <h2 className='text-blue-500 font-semibold text-xxl flex items-center justify-center'>RAC</h2>
 
           <div className="flex items-center ">
-            {/* Search Bar */}
-            <input
-              type="text"
-              placeholder="Search product, supplier, order..."
-              className="border rounded-md p-2 mr-5 w-80"
-            />
-            <button className="flex flex-col bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-          Search
-        </button>
+            
           </div>
 
           {/* Notification and User Icons */}

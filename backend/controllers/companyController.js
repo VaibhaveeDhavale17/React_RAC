@@ -27,3 +27,18 @@ exports.getCompanyDetails = catchAsyncErrors(async(req,res,next)=>{
         company,
     })
 })
+
+
+//GET ALL COMPANIES
+exports.getAllCompanies = catchAsyncErrors(async(req, res, next)=>{
+    const allCompanyDetails = await Company.find();
+
+    if(!allCompanyDetails){
+        return next(new ErrorHandler("Error Fetching Companies", 404));
+    }
+
+    res.status(200).json({
+        success:true,
+        allCompanyDetails,
+    })
+})

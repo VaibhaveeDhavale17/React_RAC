@@ -123,16 +123,6 @@
     font-size: var(--bs-root-font-size)
 }
 
-/*
-STYLES
-*/
-.label-style{
-    font-size: 1rem;
-    font-weight: 600;
-    color: #000;
-    margin: 15px;
-}
-
 @media(prefers-reduced-motion: no-preference) {
     :root {
         scroll-behavior: smooth

@@ -1,0 +1,8 @@
+body{
+    @apply font-poppins;
+    color:black;
+}
+
+header, nav{
+    z-index: 100001 !important;
+}

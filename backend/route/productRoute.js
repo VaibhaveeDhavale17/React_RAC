@@ -11,7 +11,7 @@ router.route("/products").get(getAllProducts);
 router.route("/product/new").post(createProduct);
 
 //Update a product
-router.route("/product/:refNumber").put(updateProduct);
+router.route("/product/update/:refNumber").put(updateProduct);
 
 //Delete a product
 router.route("/product/:refNumber").delete(deleteProduct);
