@@ -57,6 +57,10 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     if (!user) {
       return next(new ErrorHander("Invalid email or password", 401));
     }
+
+    if (user.status === "pending") {
+      return next(new ErrorHander("User account is not approved . Please activate your account.", 401));
+    }
   
     const isPasswordMatched = await user.comparePassword(userPassword);
   
@@ -103,38 +107,34 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Invalid Username or Email", 401));
   }
   
-  if (user.role === 'admin') {
-    // Generating a Password Reset Token
+  // Generating a Password Reset Token
 
-    const resetToken = user.getResetPasswordToken();
+  const resetToken = user.getResetPasswordToken();
 
-    await user.save({validateBeforeSave: false});
+  await user.save({validateBeforeSave: false});
 
-    const resetPasswordUrl = `localhost:5173/resetpassword/${resetToken}`;
+  const resetPasswordUrl = `localhost:5173/resetpassword/${resetToken}`;
 
-    const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
+  const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 
-    try {
-      await sendEmail({
-        email: user.userEmail,
-        subject: `RAC Password Recovery`,
-        message,
-      });
-  
-      res.status(200).json({
-        success: true,
-        message: `Email sent to ${user.userEmail} successfully`,
-      });
-    } catch (error) {
-      user.resetPasswordToken = undefined;
-      user.resetPasswordExpire = undefined;
-  
-      await user.save({ validateBeforeSave: false });
-  
-      return next(new ErrorHander(error.message, 500));
-    }
-  } else {
-    return next(new ErrorHander("Only admin Can reset The Password", 401));
+  try {
+    await sendEmail({
+      email: user.userEmail,
+      subject: `RAC Password Recovery`,
+      message,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `Email sent to ${user.userEmail} successfully`,
+    });
+  } catch (error) {
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save({ validateBeforeSave: false });
+
+    return next(new ErrorHander(error.message, 500));
   }
 });
 
@@ -183,13 +183,116 @@ Get user details
 **************/
 
 exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
-  const user = await User.find({});
+  const users = await User.find({ status: "accepted" });
 
   res.status(200).json({
     success: true,
-    user,
+    users,
   });
 });
+
+/**************
+Get user Requests 
+**************/
+exports.getUserRequests = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find({ status: "pending" });
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+
+/**************
+Get rejected users 
+**************/
+exports.getrejectedUsers = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find({ status: "rejected" });
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+
+/**************
+Approve user Requests 
+**************/
+exports.approveUserRequests = catchAsyncErrors(async (req, res, next) => {
+  const userId = req.params.id;
+
+  // Update the user status to "accepted"
+  const updatedUser = await User.updateOne({ _id: userId }, { $set: { status: "accepted" } });
+
+  if (updatedUser.nModified === 0) {
+    return next(new ErrorHander("User not found or status not updated", 404));
+  }else{
+    try {
+
+      // Retrieve the updated user details
+      const user = await User.findById(userId);
+
+      const message = `Dear ${user.userName}, \n\nWe are pleased to inform you that your registration request for the RAC Inventory Management System has been successfully approved!\n\nBest regards, \nThe RAC Team`;
+
+
+      await sendEmail({
+        email: user.userEmail,
+        subject: `Access Granted: Your RAC Registration Request Approved`,
+        message,
+      });
+  
+      res.status(200).json({
+        success: true,
+        user,
+      });
+
+    } catch (error) {
+      return next(new ErrorHander(error.message, 500));
+    }
+  }
+});
+
+
+/**************
+Reject user Requests 
+**************/
+exports.rejectUserRequests = catchAsyncErrors(async (req, res, next) => {
+  const userId = req.params.id;
+
+  // Update the user status to "rejected"
+  const updatedUser = await User.updateOne({ _id: userId }, { $set: { status: "rejected" } });
+
+  if (updatedUser.nModified === 0) {
+    return next(new ErrorHander("User not found or status not updated", 404));
+  }else{
+    try {
+
+      // Retrieve the updated user details
+      const user = await User.findById(userId);
+
+      const message = `Dear ${user.userName}, \n\nWe regret to inform you that your registration request for the RAC Inventory Management System has been rejected.\n\nBest regards, \nThe RAC Team`;
+
+
+
+      await sendEmail({
+        email: user.userEmail,
+        subject: `Access Rejected: Your RAC Registration Request is Rejected`,
+        message,
+      });
+  
+      res.status(200).json({
+        success: true,
+        user,
+      });
+
+    } catch (error) {
+      return next(new ErrorHander(error.message, 500));
+    }
+  }
+});
+
 
 /******************
 Update user details 
