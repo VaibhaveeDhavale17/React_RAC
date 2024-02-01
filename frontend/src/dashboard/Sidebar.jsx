@@ -2,17 +2,35 @@ import React, { useEffect, useState } from 'react'
 import { Sidebar } from 'flowbite-react';
 import {  HiChartPie, HiInbox,  HiOutlineCloudUpload, HiUser, HiLogout} from 'react-icons/hi';
 import { FaList, FaUserFriends} from 'react-icons/fa';
-import {useLocation} from 'react-router-dom'; 
+import {useLocation,useNavigate} from 'react-router-dom'; 
+
+import axios from 'axios';
 
 const MySidebar = () => {
 
   const location = useLocation();
+  const navigate = useNavigate();
   const [activeRoute, setActiveRoute] = useState('/dashboard');
 
   useEffect(()=>{
     setActiveRoute(location.pathname);
 
   }, [location.pathname]);
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/rac/user/logout');
+      if (response.status === 200) {
+        console.log('Logout successful');
+        // Redirect to the login page after successful logout
+        navigate('/');
+      } else {
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  };
 
   return (
     <div style={{ display: 'flex', height: '100%', position:'relative', boxShadow: '0px 2px 5px rgba(0, 0, 1, 0.3)',borderTopLeftRadius: 0,borderTopRightRadius: 0 }}>
@@ -40,9 +58,18 @@ const MySidebar = () => {
             Add Supplier
           </Sidebar.Item>
           
-          <Sidebar.Item href="/logout" icon={HiLogout} className='font-poppins p-3' style={{ color: activeRoute === '/dashboard/logout' ? 'blue' : 'black', fontWeight: activeRoute === '/dashboard/logout' ? 'bold' : 'normal' }}>
-            Log out
-          </Sidebar.Item>
+          <Sidebar.Item
+              onClick={handleLogout} // Add onClick event for the logout button
+              icon={HiLogout}
+              className='font-poppins p-3'
+              style={{
+                color: activeRoute === '/dashboard/logout' ? 'blue' : 'black',
+                fontWeight: activeRoute === '/dashboard/logout' ? 'bold' : 'normal',
+                cursor: 'pointer', // Set cursor to pointer for better user experience
+              }}
+            >
+              Log out
+            </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
